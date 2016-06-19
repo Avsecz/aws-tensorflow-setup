@@ -19,7 +19,7 @@ It is based on the blog post published [here](http://max-likelihood.com/2016/06/
 
 2. Put it into your dropbox and copy the shared file link.
 
-3. Run `setup_aws_tensorflow.bash` on the aws instance, providing it the cuDNN link from your dropbox:
+3. Run `setup_aws_tensorflow.bash` on the aws instance, providing the cuDNN link from your dropbox as argument:
 
 ```bash
 setup_aws_tensorflow.bash https://www.dropbox.com/s/.../cudnn-7.0-linux-x64-v4.0-prod.tgz
