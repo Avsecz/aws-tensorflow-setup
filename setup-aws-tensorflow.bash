@@ -37,7 +37,7 @@ bash Anaconda3-4.0.0-Linux-x86_64.sh -b -p ~/bin/anaconda3
 rm Anaconda3-4.0.0-Linux-x86_64.sh
 echo 'export PATH="$HOME/bin/anaconda3/bin:$PATH"' >> ~/.bashrc
 # reload bash
-exec bash
+source ~/.bashrc
 
 
 # install tensorflow
