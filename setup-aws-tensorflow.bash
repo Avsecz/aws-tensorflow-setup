@@ -3,6 +3,10 @@
 # stop on error
 set -e
 ############################################
+# install into /mnt/bin
+mkdir -p /mnt/bin
+chown ubuntu:ubuntu /mnt/bin
+
 # install the required packages
 sudo apt-get update && sudo apt-get -y upgrade
 sudo apt-get -y install linux-headers-$(uname -r) linux-image-extra-`uname -r`
@@ -33,9 +37,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_ROOT/lib64
 
 # install anaconda
 wget http://repo.continuum.io/archive/Anaconda3-4.0.0-Linux-x86_64.sh
-bash Anaconda3-4.0.0-Linux-x86_64.sh -b -p ~/bin/anaconda3
+bash Anaconda3-4.0.0-Linux-x86_64.sh -b -p /mnt/bin/anaconda3
 rm Anaconda3-4.0.0-Linux-x86_64.sh
-echo 'export PATH="$HOME/bin/anaconda3/bin:$PATH"' >> ~/.bashrc
+echo 'export PATH="/mnt/bin/anaconda3/bin:$PATH"' >> ~/.bashrc
 # reload bash
 source ~/.bashrc
 
