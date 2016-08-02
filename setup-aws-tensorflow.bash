@@ -1,34 +1,7 @@
 #!/bin/bash
 
-# Usage:
-#
-# 1. Put the cudnn file to your dropbox and share the link
-# 2. Run this bash script on the instance, providing it the cudnn link on your dropbox:
-# setup_aws_tensorflow.bash https://www.dropbox.com/s/.../cudnn-7.0-linux-x64-v4.0-prod.tgz
-
 # stop on error
 set -e
-
-############################################
-# input check
-
-if ! [[ $# -eq 1 ]] ; then
-    echo 'Usage: setup_aws_tensorflow.bash CUDNN_FILE_PATH
-CUDNN_FILE_PATH is a downloadable path to cudnn-7.0-linux-x64-v4.0-prod.tgz
-'
-    exit 0
-fi
-
-# check the file input
-
-CUDNN_FILE_PATH=$1
-CUDNN_FILE=cudnn-7.0-linux-x64-v4.0-prod.tgz
-
-if ! [[ "${CUDNN_FILE}" == "$(basename $CUDNN_FILE_PATH)" ]] ; then
-    echo "Downloadable file should be cudnn-7.0-linux-x64-v4.0-prod.tgz, yours is $(basename $CUDNN_FILE_PATH)"
-    exit 0
-fi
-
 ############################################
 # install the required packages
 sudo apt-get update && sudo apt-get -y upgrade
@@ -42,13 +15,14 @@ sudo apt-get update
 sudo apt-get install -y cuda
 
 # get cudnn
-wget $CUDNN_FILE_PATH
+CUDNN_FILE=cudnn-7.0-linux-x64-v4.0-prod.tgz
+wget http://developer.download.nvidia.com/compute/redist/cudnn/v4/${CUDNN_FILE}
 tar xvzf ${CUDNN_FILE}
 rm ${CUDNN_FILE}
 sudo cp cuda/include/cudnn.h /usr/local/cuda/include # move library files to /usr/local/cuda
 sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
 sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
-rm -rf ~/cuda
+rm -rf cuda
 
 # set the appropriate library path
 echo 'export CUDA_HOME=/usr/local/cuda
@@ -84,19 +58,3 @@ sudo apt-get -y install htop
 # watch --color -n1.0 gpustat -cp	# run in window 2, press Shift + <left>
 # wget https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/models/image/mnist/convolutional.py
 # python convolutional.py		# run in window 3
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
