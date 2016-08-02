@@ -4,8 +4,8 @@
 set -e
 ############################################
 # install into /mnt/bin
-mkdir -p /mnt/bin
-chown ubuntu:ubuntu /mnt/bin
+sudo mkdir -p /mnt/bin
+sudo chown ubuntu:ubuntu /mnt/bin
 
 # install the required packages
 sudo apt-get update && sudo apt-get -y upgrade
@@ -40,14 +40,11 @@ wget http://repo.continuum.io/archive/Anaconda3-4.0.0-Linux-x86_64.sh
 bash Anaconda3-4.0.0-Linux-x86_64.sh -b -p /mnt/bin/anaconda3
 rm Anaconda3-4.0.0-Linux-x86_64.sh
 echo 'export PATH="/mnt/bin/anaconda3/bin:$PATH"' >> ~/.bashrc
-# reload bash
-source ~/.bashrc
-
 
 # install tensorflow
 export TF_BINARY_URL='https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.9.0rc0-cp35-cp35m-linux_x86_64.whl'
 
-pip install $TF_BINARY_URL
+/mnt/bin/anaconda3/bin/pip install $TF_BINARY_URL
 
 # install monitoring programs
 sudo wget https://git.io/gpustat -O /usr/local/bin/gpustat
@@ -55,6 +52,8 @@ sudo chmod +x /usr/local/bin/gpustat
 sudo nvidia-smi daemon
 sudo apt-get -y install htop
 
+# reload .bashrc
+exec bash
 ############################################
 # run the test
 # byobu				# start byobu + press Ctrl + F2 
