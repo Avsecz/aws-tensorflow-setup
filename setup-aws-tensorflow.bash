@@ -47,7 +47,7 @@ export TF_BINARY_URL='https://storage.googleapis.com/tensorflow/linux/gpu/tensor
 /mnt/bin/anaconda3/bin/pip install $TF_BINARY_URL
 
 # install monitoring programs
-sudo wget https://git.io/gpustat -O /usr/local/bin/gpustat
+sudo wget https://git.io/gpustat.py -O /usr/local/bin/gpustat
 sudo chmod +x /usr/local/bin/gpustat
 sudo nvidia-smi daemon
 sudo apt-get -y install htop
